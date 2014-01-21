@@ -36,9 +36,9 @@ namespace
 		
 		virtual void getAnalysisUsage(AnalysisUsage &AU) const
 		{
-            AU.addRequired<CallGraph>();
-            AU.setPreservesCFG();
-            AU.setPreservesAll();
+			AU.addRequired<CallGraph>();
+			AU.setPreservesCFG();
+			AU.setPreservesAll();
 		}
 		
 		virtual bool runOnModual(Module &_M);

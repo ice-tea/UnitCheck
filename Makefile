@@ -4,7 +4,7 @@ Makefile for hello pass
 LEVEL = ../../..
 
 # Name of the library to build
-LIBRARYNAME = UnitCheck
+LIBRARYNAME = UCPass
 
 # Make the shared library become a loadable module so the tools can
 # dlopen/dlsym on the resulting library.
