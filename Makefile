@@ -1,4 +1,4 @@
-Makefile for hello pass
+#Makefile for hello pass
 
 # Path to top level of LLVM hierarchy
 LEVEL = ../../..
