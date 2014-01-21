@@ -66,39 +66,39 @@ namespace
 	char UCPass::ID = 0;
 	static RegisterPass<UCPass> X("UChecker", "Unit Checker", false, false);
 	
-    std::pair<unsigned, StringRef> UCPass::getInstInfo(Instruction *I)
-    {
-        
-        if (MDNode *N = I->getMetadata("dbg"))
-        {                                           // Here I is an LLVM instruction
-            DILocation Loc(N);                      // DILocation is in DebugInfo.h
-            unsigned bbline = Loc.getLineNumber();
-            StringRef bbfile = Loc.getFilename();
-            //errs() << "[getInstInfo]" << bbline << " " << bbfile << "\n";
-            return std::make_pair(bbline, bbfile);
-        }
-        return std::make_pair(0, "");
-    }
+	std::pair<unsigned, StringRef> UCPass::getInstInfo(Instruction *I)
+	{
+		if (MDNode *N = I->getMetadata("dbg"))
+		{                                           // Here I is an LLVM instruction
+			DILocation Loc(N);                      // DILocation is in DebugInfo.h
+			unsigned bbline = Loc.getLineNumber();
+			StringRef bbfile = Loc.getFilename();
+			//errs() << "[getInstInfo]" << bbline << " " << bbfile << "\n";
+			return std::make_pair(bbline, bbfile);
+		}
+		return std::make_pair(0, "");
+	}
     
 	bool UCPass::runOnModule(Module &_M)
 	{
 		M = &_M;
 		
-        M->getGlobalList();
+		M->getGlobalList();
 		for(Module::iterator mit=M->begin(); mit!=M->end(); ++mit)
 		{
 			Function *F = mit;
 			for(inst_iterator iit=inst_begin(F); iit!=inst_end(F); ++iit)
 			{
-                Instruction *inst = &*iit;
+				Instruction *inst = &*iit;
 				InstList.push_back(inst);
 			}
 		}
         
 		for(std::vector<Instruction *>::iterator vit=InstList.begin(); vit!=InstList.end(); ++vit)
-        {
-            DEBUG(errs() << "Instruction:" << *vit << "at line:" << getInstInfo(*vit).first << "\n");
-        }
+		{
+			Instruction *i = *vit;
+			DEBUG(errs() << "Instruction:" << i << " at line:" << getInstInfo(i).first << "\n");
+		}
 		
 		return false;	
 	}
