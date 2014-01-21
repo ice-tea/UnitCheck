@@ -1,19 +1,19 @@
 
 #include "llvm/ADT/ArrayRef.h"
-#include "llvm/BasicBlock.h"
-#include "llvm/Constants.h"
-#include "llvm/Function.h"
-#include "llvm/GlobalVariable.h"
+#include "llvm/IR/BasicBlock.h"
+#include "llvm/IR/Constants.h"
+#include "llvm/IR/Function.h"
+#include "llvm/IR/GlobalVariable.h"
 #include "llvm/Pass.h"
-#include "llvm/Type.h"
-#include "llvm/Instruction.h"
-#include "llvm/Instructions.h"
-#include "llvm/Module.h"
+#include "llvm/IR/Type.h"
+#include "llvm/IR/Instruction.h"
+#include "llvm/IR/Instructions.h"
+#include "llvm/IR/Module.h"
 #include "llvm/Support/Debug.h"
 #include "llvm/Support/raw_ostream.h"
 #include "llvm/Support/CommandLine.h"
 #include "llvm/Support/ErrorHandling.h"
-#include "llvm/Analysis/DebugInfo.h"
+#include "llvm/DebugInfo.h"
 #include "llvm/ADT/PostOrderIterator.h"
 #include "llvm/Support/CFG.h"
 #include "llvm/Analysis/CallGraph.h"
@@ -42,7 +42,7 @@ namespace
 			AU.setPreservesAll();
 		}
 		
-		virtual bool runOnModual(Module &_M);
+		virtual bool runOnModule(Module &_M);
 		
 		static char ID;
 		
@@ -52,12 +52,12 @@ namespace
 		
 	};
 	
-	char CEPass::ID = 0;
+	char UCPass::ID = 0;
 	static RegisterPass<UCPass> X("UChecker", "Unit Checker", false, false);
 	
 	bool UCPass::runOnModule(Module &_M)
 	{
-		M = _M;
+		M = &_M;
 			
 		return false;	
 	}
